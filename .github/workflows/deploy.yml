@@ -1,21 +1,19 @@
-name: Deploy to Vercel Production
+name: Deploy to Vercel
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+      - name: 📦 Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: 🚀 Deploy to Vercel
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
