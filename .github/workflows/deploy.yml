@@ -12,12 +12,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
       - name: Deploy to Vercel
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel --prod --confirm
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}       # Required
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}     # Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # Required
+          vercel-args: '--prod'                           # Optional, for production deploy
